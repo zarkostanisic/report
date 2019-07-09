@@ -2,7 +2,7 @@
   use PhpOffice\PhpWord\Shared\Converter;
 
   $result = $conn->query("
-    SELECT c.id, c.name, c.address, r.expensive_new, r.expensive_old, r.cheap_new, r.cheap_old
+    SELECT c.id, c.name, c.address, c.serial, r.expensive_new, r.expensive_old, r.cheap_new, r.cheap_old
     FROM reports r
     INNER JOIN customers c ON r.customer_id = c.id
     WHERE r.customer_id='" . $customer_id . "'
@@ -19,12 +19,14 @@
   $expensive = $customer->expensive_new - $customer->expensive_old;
   $cheap = $customer->cheap_new - $customer->cheap_old;
   $consumed = $expensive + $cheap;
+  $serial = $customer->serial;
 
   // title
   $section->addTitle('1. Last month', 1);
 
   // Text
   $section->addText('Customer id: ' . $customer->id);
+  $section->addText('Serial: ' . $serial);
   $section->addText('Name: ' . $name);
   $section->addText('Address: ' . $address);
   $section->addText('Consumed ' . $consumed . ' kW last month. Expensive ' . $expensive . ' kW and cheap ' . $cheap . ' kW.');
