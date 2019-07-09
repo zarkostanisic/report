@@ -34,14 +34,15 @@ For Each objShape In ActiveDocument.InlineShapes
                 objShape.Chart.HasLegend = True
                 objShape.Chart.Legend.Position = xlLegendPositionBottom
                 ' objShape.Chart.ChartStyle = 2
-                objShape.Chart.ChartGroups(1).Overlap = -100
+                objShape.Chart.ChartGroups(1).GapWidth = 150
+                objShape.Chart.ChartGroups(1).Overlap = -50
 
                 For Each chartSerie In objShape.Chart.SeriesCollection
                     chartSerie.DataLabels.NumberFormat = kwFormat
                     chartSerie.DataLabels.Orientation = xlDownward
                 Next
 
-                ' objShape.Chart.ChartTitle.Text = "Expensive, cheap per period in kW"
+                objShape.Chart.ChartTitle.Text = "Expensive, cheap per period in kW"
 
             End If
         End If
