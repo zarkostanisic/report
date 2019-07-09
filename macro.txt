@@ -1,0 +1,75 @@
+Sub charts()
+'
+' charts Macro
+'
+'
+Dim objShape As InlineShape
+
+' Number formats
+decimalPercentFormat = "0.00%"
+kwFormat = "0 kW"
+
+
+For Each objShape In ActiveDocument.InlineShapes
+    If objShape.HasChart Then
+
+        ' Last month pie chart
+        If objShape.Chart.HasTitle Then
+
+            If objShape.Chart.ChartTitle.Text = "last-month-pie" Then
+                objShape.Chart.SeriesCollection(1).DataLabels.NumberFormat = decimalPercentFormat
+                objShape.Chart.Legend.Position = xlLegendPositionBottom
+
+                ' objShape.Chart.ChartStyle = 2
+
+                objShape.Chart.ChartTitle.Text = "Expensive, cheap in %"
+            End If
+        End If
+
+        ' Last year column clustered
+        If objShape.Chart.HasTitle Then
+            If objShape.Chart.ChartTitle.Text = "last-year-column-clustered" Then
+                objShape.Chart.ChartType = xlColumnClustered
+
+                objShape.Chart.HasLegend = True
+                objShape.Chart.Legend.Position = xlLegendPositionBottom
+                ' objShape.Chart.ChartStyle = 2
+                objShape.Chart.ChartGroups(1).Overlap = -100
+
+                For Each chartSerie In objShape.Chart.SeriesCollection
+                    chartSerie.DataLabels.NumberFormat = kwFormat
+                    chartSerie.DataLabels.Orientation = xlDownward
+                Next
+
+                ' objShape.Chart.ChartTitle.Text = "Expensive, cheap per period in kW"
+
+            End If
+        End If
+
+        ' Last year bar
+        If objShape.Chart.HasTitle Then
+
+            If objShape.Chart.ChartTitle.Text = "last-year-bar" Then
+
+                ' objShape.Chart.ChartStyle = 2
+
+                objShape.Chart.ChartTitle.Text = "Expensive, cheap"
+            End If
+        End If
+
+        ' Last year pie 3d
+        If objShape.Chart.HasTitle Then
+
+            If objShape.Chart.ChartTitle.Text = "last-year-pie-3d" Then
+                objShape.Chart.SeriesCollection(1).DataLabels.NumberFormat = decimalPercentFormat
+                objShape.Chart.Legend.Position = xlLegendPositionBottom
+
+                ' objShape.Chart.ChartStyle = 2
+
+                objShape.Chart.ChartTitle.Text = "Expensive, cheap per period in %"
+            End If
+        End If
+    End If
+Next
+
+End Sub
