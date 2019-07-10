@@ -14,62 +14,66 @@ For Each objShape In ActiveDocument.InlineShapes
     If objShape.HasChart Then
 
         ' Last month pie chart
-        If objShape.Chart.HasTitle Then
+        With objShape.Chart
+            If .HasTitle Then
+                If .ChartTitle.Text = "last-month-pie" Then
 
-            If objShape.Chart.ChartTitle.Text = "last-month-pie" Then
-                objShape.Chart.SeriesCollection(1).DataLabels.NumberFormat = decimalPercentFormat
-                objShape.Chart.Legend.Position = xlLegendPositionBottom
+                    .SeriesCollection(1).DataLabels.NumberFormat = decimalPercentFormat
+                    .Legend.Position = xlLegendPositionBottom
+                    .ChartStyle = 44
+                    .ChartTitle.Text = "Expensive, cheap in %"
 
-                ' objShape.Chart.ChartStyle = 2
-
-                objShape.Chart.ChartTitle.Text = "Expensive, cheap in %"
+                End If
             End If
-        End If
 
-        ' Last year column clustered
-        If objShape.Chart.HasTitle Then
-            If objShape.Chart.ChartTitle.Text = "last-year-column-clustered" Then
-                objShape.Chart.ChartType = xlColumnClustered
+            ' Last year column clustered
+            If .HasTitle Then
+                If .ChartTitle.Text = "last-year-column-clustered" Then
 
-                objShape.Chart.HasLegend = True
-                objShape.Chart.Legend.Position = xlLegendPositionBottom
-                ' objShape.Chart.ChartStyle = 2
-                objShape.Chart.ChartGroups(1).GapWidth = 150
-                objShape.Chart.ChartGroups(1).Overlap = -50
+                    .HasLegend = True
+                    .Legend.Position = xlLegendPositionBottom
 
-                For Each chartSerie In objShape.Chart.SeriesCollection
-                    chartSerie.DataLabels.NumberFormat = kwFormat
-                    chartSerie.DataLabels.Orientation = xlDownward
-                Next
+                    .ChartType = xlColumnClustered
+                    .ChartStyle = 2
+                    .ChartGroups(1).GapWidth = 150
+                    .ChartGroups(1).Overlap = -50
 
-                objShape.Chart.ChartTitle.Text = "Expensive, cheap per period in kW"
+                    For Each chartSerie In .SeriesCollection
+                        With chartSerie.DataLabels
+                            .NumberFormat = kwFormat
+                            .Orientation = xlDownward
+                        End With
+                    Next
 
+                    .ChartTitle.Text = "Expensive, cheap per period in kW"
+
+                End If
             End If
-        End If
 
-        ' Last year bar
-        If objShape.Chart.HasTitle Then
+            ' Last year bar
+            If .HasTitle Then
 
-            If objShape.Chart.ChartTitle.Text = "last-year-bar" Then
+                If .ChartTitle.Text = "last-year-bar" Then
 
-                ' objShape.Chart.ChartStyle = 2
+                    ' .ChartStyle = 2
 
-                objShape.Chart.ChartTitle.Text = "Expensive, cheap"
+                    .ChartTitle.Text = "Expensive, cheap"
+                End If
             End If
-        End If
 
-        ' Last year pie 3d
-        If objShape.Chart.HasTitle Then
+            ' Last year pie 3d
+            If .HasTitle Then
 
-            If objShape.Chart.ChartTitle.Text = "last-year-pie-3d" Then
-                objShape.Chart.SeriesCollection(1).DataLabels.NumberFormat = decimalPercentFormat
-                objShape.Chart.Legend.Position = xlLegendPositionBottom
+                If .ChartTitle.Text = "last-year-pie-3d" Then
+                    .SeriesCollection(1).DataLabels.NumberFormat = decimalPercentFormat
+                    .Legend.Position = xlLegendPositionBottom
 
-                ' objShape.Chart.ChartStyle = 2
+                    ' .ChartStyle = 2
 
-                objShape.Chart.ChartTitle.Text = "Expensive, cheap per period in %"
+                    .ChartTitle.Text = "Expensive, cheap per period in %"
+                End If
             End If
-        End If
+        End With
     End If
 Next
 
