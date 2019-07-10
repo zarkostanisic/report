@@ -4,6 +4,8 @@
   // Charts
   $section = $phpWord->addSection(array('colsNum' => 2, 'breakType' => 'continuous'));
 
+  $title = $section->addTitle('Expensive, cheap', 3);
+
   // Column chart
 
   $c1 = array('Expensive', 'Cheap');
@@ -25,6 +27,7 @@
   $section->addTextBreak();
 
   // Pie chart
+  $title = $section->addTitle('Expensive, cheap per period in %', 3);
 
   $result = $conn->query("
     SELECT SUM((expensive_new - expensive_old) + (cheap_new - cheap_old)) as sum, CONCAT(year, '-', month) AS period

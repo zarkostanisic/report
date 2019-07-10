@@ -10,23 +10,31 @@
 ");
 
   // title
-  $section->addTitle('2. Last year', 1);
-  $section->addTitle('2.1 Table', 2);
+  $section->addTitle('Last year', 1);
+  $section->addTitle('Table', 2);
 
   // Table
 
   // Table - head
+  $cellFirstRowStyle = array('gridSpan' => 3, 'borderSize' => 6);
   $table = $section->addTable('Report');
   $table->addRow();
-  $table->addCell()->addText('Expensive new kW');
-  $table->addCell()->addText('Expensive old kW');
-  $table->addCell()->addText('Expensive');
-  $table->addCell()->addText('Cheap new kW');
-  $table->addCell()->addText('Cheap old kW');
-  $table->addCell()->addText('Cheap');
-  $table->addCell()->addText('Sum kW');
-  $table->addCell()->addText('Period');
-  $table->addCell()->addText('Operater');
+  $table->addCell(3000, $cellFirstRowStyle)->addText('Expensive');
+  $table->addCell(3000, $cellFirstRowStyle)->addText('Cheap');
+  $table->addCell(3000, $cellFirstRowStyle)->addText('');
+  $table->addRow();
+
+  $cellSecondRowStyle = array('bgColor' => 'DDDDDD', 'borderSize' => 6);
+
+  $table->addCell(null, $cellSecondRowStyle)->addText('New');
+  $table->addCell(null, $cellSecondRowStyle)->addText('Old');
+  $table->addCell(null, $cellSecondRowStyle)->addText('Consumed');
+  $table->addCell(null, $cellSecondRowStyle)->addText('New');
+  $table->addCell(null, $cellSecondRowStyle)->addText('Old');
+  $table->addCell(null, $cellSecondRowStyle)->addText('Consumed');
+  $table->addCell(null, $cellSecondRowStyle)->addText('Sum');
+  $table->addCell(900, $cellSecondRowStyle)->addText('Period');
+  $table->addCell(900, $cellSecondRowStyle)->addText('Operater');
 
   // Table - body
   $sumExpensive = 0;
@@ -43,6 +51,7 @@
     $sumExpensive += $expensive;
     $sumCheap += $cheap;
 
+    // Data for column clustered chart
     $period = $row->year . '-' . $row->month;
     $c4[] = $period;
     $s4['expensive'][] = $expensive;
@@ -63,21 +72,21 @@
   $total += ($sumExpensive + $sumCheap);
 
   $table->addRow();
-  $table->addCell()->addText('Expensive: ' . $sumExpensive . ' kw');
-  $table->addCell()->addText('Cheap: ' . $sumCheap . ' kw');
-  $table->addCell()->addText('Total: ' . $total . ' kw');
-  $table->addCell(null);
-  $table->addCell(null);
-  $table->addCell(null);
-  $table->addCell(null);
-  $table->addCell(null);
-  $table->addCell(null);
+  $table->addCell(null, array('gridSpan' => 3))->addText('Expensive: ' . $sumExpensive);
+  $table->addCell(null, array('gridSpan' => 3))->addText('Cheap: ' . $sumCheap);
+  $table->addCell(null, array('gridSpan' => 3))->addText('Total: ' . $total);
+  $section->addText(
+    'Values are in kW',
+    array('size' => 10),
+    array('alignment' => \PhpOffice\PhpWord\SimpleType\Jc::CENTER, 'spaceBefore' => \PhpOffice\PhpWord\Shared\Converter::pointToTwip(10))
+  );
 
   $section->addPageBreak();
 
   // title
 
-  $title = $section->addTitle('2.2 Charts', 2);
+  $title = $section->addTitle('Charts', 2);
+  $title = $section->addTitle('Expensive, cheap per period in kW', 3);
 
   // Column clustered chart
 
@@ -93,7 +102,10 @@
     )
   );
 
-  echo "<br/>";
+  // Data for column clustered chart reversed
+  $c4 = array_reverse($c4);
+  $s4['expensive'] = array_reverse($s4['expensive']);
+  $s4['cheap'] = array_reverse($s4['cheap']);
 
   $chartColumnClustered = $section->addChart('column', $c4, $s4['expensive'], $styleColumnClustered, 'Expensive');
 
