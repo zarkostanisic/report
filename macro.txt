@@ -14,7 +14,7 @@ For Each objShape In ActiveDocument.InlineShapes
     If objShape.HasChart Then
 
         With objShape.Chart
-            If .HasTitle Then
+            If .HasTitle = True Then
                 ' Last month pie chart
                 If .ChartTitle.Text = "#last-month-pie" Then
 
@@ -24,7 +24,9 @@ For Each objShape In ActiveDocument.InlineShapes
                     .ChartTitle.Text = ""
 
                 End If
+            End If
 
+            If .HasTitle = True Then
                 ' Last year column clustered
                 If .ChartTitle.Text = "#last-year-column-clustered" Then
 
@@ -48,6 +50,9 @@ For Each objShape In ActiveDocument.InlineShapes
                     Next
 
                 End If
+            End If
+
+            If .HasTitle = True Then
 
                 ' Last year bar
                 If .ChartTitle.Text = "#last-year-bar" Then
@@ -56,6 +61,10 @@ For Each objShape In ActiveDocument.InlineShapes
                     .ChartTitle.Text = ""
 
                 End If
+
+            End If
+
+            If .HasTitle = True Then
 
                 ' Last year pie 3d
                 If .ChartTitle.Text = "#last-year-pie-3d" Then
