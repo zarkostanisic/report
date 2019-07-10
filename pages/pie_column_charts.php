@@ -10,7 +10,7 @@
   $s1 = array($sumExpensive, $sumCheap);
 
   $styleColumnChart = array(
-    'title' => 'last-year-bar',
+    'title' => '#last-year-bar',
     'width' => Converter::inchToEmu(3),
     'height' => Converter::inchToEmu(2.5),
     'showAxisLabels' => true,
@@ -45,7 +45,7 @@
     'width' => Converter::inchToEmu(3),
     'height' => Converter::inchToEmu(2.5),
     '3d' => true,
-    'title' => 'last-year-pie-3d',
+    'title' => '#last-year-pie-3d',
     'showLegend' => true,
     'dataLabelOptions' => array(
       'showVal' => false,

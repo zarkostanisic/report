@@ -82,7 +82,7 @@
   // Column clustered chart
 
   $styleColumnClustered = array(
-    'title' => 'last-year-column-clustered',
+    'title' => '#last-year-column-clustered',
     // 'showLegend' => true,
     'width' => Converter::inchToEmu(6),
     'height' => Converter::inchToEmu(4),

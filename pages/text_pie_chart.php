@@ -47,7 +47,7 @@
     'height' => Converter::inchToEmu(4),
     'valueAxisTitle' => 'Last month consumed in kW',
     'showLegend' => true,
-    'title' => 'last-month-pie',
+    'title' => '#last-month-pie',
     'dataLabelOptions' => array(
       'showCatName' => false,
       'showVal' => false,
