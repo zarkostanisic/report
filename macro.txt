@@ -14,8 +14,9 @@ For Each objShape In ActiveDocument.InlineShapes
     If objShape.HasChart Then
 
         With objShape.Chart
+
+            ' Last month pie chart
             If .HasTitle = True Then
-                ' Last month pie chart
                 If .ChartTitle.Text = "#last-month-pie" Then
 
                     .SeriesCollection(1).DataLabels.NumberFormat = decimalPercentFormat
@@ -26,8 +27,8 @@ For Each objShape In ActiveDocument.InlineShapes
                 End If
             End If
 
+            ' Last year column clustered
             If .HasTitle = True Then
-                ' Last year column clustered
                 If .ChartTitle.Text = "#last-year-column-clustered" Then
 
                     .HasLegend = True
@@ -52,21 +53,18 @@ For Each objShape In ActiveDocument.InlineShapes
                 End If
             End If
 
+            ' Last year bar
             If .HasTitle = True Then
-
-                ' Last year bar
                 If .ChartTitle.Text = "#last-year-bar" Then
 
                     ' .ChartTitle.Text = "Expensive, cheap"
                     .ChartTitle.Text = ""
 
                 End If
-
             End If
 
+            ' Last year pie 3d
             If .HasTitle = True Then
-
-                ' Last year pie 3d
                 If .ChartTitle.Text = "#last-year-pie-3d" Then
 
                     .SeriesCollection(1).DataLabels.NumberFormat = decimalPercentFormat
@@ -76,6 +74,7 @@ For Each objShape In ActiveDocument.InlineShapes
                     .ChartTitle.Text = ""
                 End If
             End If
+
         End With
     End If
 Next
