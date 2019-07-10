@@ -13,30 +13,32 @@ kwFormat = "0 kW"
 For Each objShape In ActiveDocument.InlineShapes
     If objShape.HasChart Then
 
-        ' Last month pie chart
         With objShape.Chart
             If .HasTitle Then
-                If .ChartTitle.Text = "last-month-pie" Then
+                ' Last month pie chart
+                If .ChartTitle.Text = "#last-month-pie" Then
 
                     .SeriesCollection(1).DataLabels.NumberFormat = decimalPercentFormat
                     .Legend.Position = xlLegendPositionBottom
-                    .ChartStyle = 44
-                    .ChartTitle.Text = "Expensive, cheap in %"
+                    ' .ChartTitle.Text = "Expensive, cheap in %"
+                    .ChartTitle.Text = ""
 
                 End If
-            End If
 
-            ' Last year column clustered
-            If .HasTitle Then
-                If .ChartTitle.Text = "last-year-column-clustered" Then
+                ' Last year column clustered
+                If .ChartTitle.Text = "#last-year-column-clustered" Then
 
                     .HasLegend = True
                     .Legend.Position = xlLegendPositionBottom
 
                     .ChartType = xlColumnClustered
-                    .ChartStyle = 2
-                    .ChartGroups(1).GapWidth = 150
-                    .ChartGroups(1).Overlap = -50
+                    ' .ChartTitle.Text = "Expensive, cheap per period in kW"
+                    .ChartTitle.Text = ""
+
+                    With .ChartGroups(1)
+                        ' .GapWidth = 150
+                        .Overlap = -50
+                    End With
 
                     For Each chartSerie In .SeriesCollection
                         With chartSerie.DataLabels
@@ -45,32 +47,24 @@ For Each objShape In ActiveDocument.InlineShapes
                         End With
                     Next
 
-                    .ChartTitle.Text = "Expensive, cheap per period in kW"
+                End If
+
+                ' Last year bar
+                If .ChartTitle.Text = "#last-year-bar" Then
+
+                    ' .ChartTitle.Text = "Expensive, cheap"
+                    .ChartTitle.Text = ""
 
                 End If
-            End If
 
-            ' Last year bar
-            If .HasTitle Then
+                ' Last year pie 3d
+                If .ChartTitle.Text = "#last-year-pie-3d" Then
 
-                If .ChartTitle.Text = "last-year-bar" Then
-
-                    ' .ChartStyle = 2
-
-                    .ChartTitle.Text = "Expensive, cheap"
-                End If
-            End If
-
-            ' Last year pie 3d
-            If .HasTitle Then
-
-                If .ChartTitle.Text = "last-year-pie-3d" Then
                     .SeriesCollection(1).DataLabels.NumberFormat = decimalPercentFormat
                     .Legend.Position = xlLegendPositionBottom
 
-                    ' .ChartStyle = 2
-
-                    .ChartTitle.Text = "Expensive, cheap per period in %"
+                    ' .ChartTitle.Text = "Expensive, cheap per period in %"
+                    .ChartTitle.Text = ""
                 End If
             End If
         End With
