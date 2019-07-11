@@ -1,3 +1,90 @@
+Sub charts()
+'
+' charts Macro
+'
+'
+Dim objShape As InlineShape
+
+' Number formats
+decimalPercentFormat = "0.00%"
+kwFormat = "0 kW"
+
+
+For Each objShape In ActiveDocument.InlineShapes
+    If objShape.HasChart Then
+
+        With objShape.Chart
+
+            ' Last month pie chart
+            If .HasTitle = True Then
+                If .ChartTitle.Text = "#last-month-pie" Then
+
+                    .ChartTitle.Text = "Expensive, cheap in %"
+                    .ChartStyle = 7
+                    .ApplyLayout (2)
+
+                    .SeriesCollection(1).DataLabels.NumberFormat = decimalPercentFormat
+                    .Legend.Position = xlLegendPositionBottom
+
+                End If
+            End If
+
+            ' Last year column clustered
+            If .HasTitle = True Then
+                If .ChartTitle.Text = "#last-year-column-clustered" Then
+
+                    .HasLegend = True
+                    .Legend.Position = xlLegendPositionBottom
+
+                    .ChartType = xlColumnClustered
+                    .ChartTitle.Text = "Expensive, cheap per period in kW"
+                    .ChartStyle = 7
+
+                    With .ChartGroups(1)
+                        ' .GapWidth = 150
+                        .Overlap = -50
+                    End With
+
+                    For Each chartSerie In .SeriesCollection
+                        With chartSerie.DataLabels
+                            .NumberFormat = kwFormat
+                            .Orientation = xlDownward
+                        End With
+                    Next
+
+                    .ApplyLayout (3)
+
+                End If
+            End If
+
+            ' Last year bar
+            If .HasTitle = True Then
+                If .ChartTitle.Text = "#last-year-bar" Then
+                    .ChartTitle.Text = "Expensive, cheap"
+                    .ChartStyle = 7
+                    .ApplyLayout (3)
+                End If
+            End If
+
+            ' Last year pie 3d
+            If .HasTitle = True Then
+                If .ChartTitle.Text = "#last-year-pie-3d" Then
+
+                    .ChartTitle.Text = "Expensive, cheap per period in %"
+                    .ChartStyle = 7
+                    .ApplyLayout (2)
+
+                    .SeriesCollection(1).DataLabels.NumberFormat = decimalPercentFormat
+                    .Legend.Position = xlLegendPositionBottom
+                End If
+            End If
+
+        End With
+    End If
+Next
+
+End Sub
+
 Sub chartsTcom()
 '
 ' chartsTcom Macro
@@ -14,11 +101,11 @@ For Each objShape In ActiveDocument.InlineShapes
     With objShape.Chart
         If .ChartType = xlColumnClustered Then
             .ChartStyle = 3
+
             .ApplyLayout (3)
             .ApplyDataLabels xlDataLabelsShowValue
             .Legend.Position = xlLegendPositionBottom
             .ChartArea.Border.Color = RGB(128, 128, 128)
-            .ChartArea.Font.Color = RGB(128, 128, 128)
             .PlotArea.Border.Color = RGB(128, 128, 128)
 
             With .Axes(xlCategory)
