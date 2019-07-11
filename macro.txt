@@ -23,6 +23,7 @@ For Each objShape In ActiveDocument.InlineShapes
                     .Legend.Position = xlLegendPositionBottom
                     ' .ChartTitle.Text = "Expensive, cheap in %"
                     .ChartTitle.Text = ""
+                    .ChartStyle = 42
 
                 End If
             End If
@@ -37,6 +38,7 @@ For Each objShape In ActiveDocument.InlineShapes
                     .ChartType = xlColumnClustered
                     ' .ChartTitle.Text = "Expensive, cheap per period in kW"
                     .ChartTitle.Text = ""
+                    .ChartStyle = 42
 
                     With .ChartGroups(1)
                         ' .GapWidth = 150
@@ -59,7 +61,7 @@ For Each objShape In ActiveDocument.InlineShapes
 
                     ' .ChartTitle.Text = "Expensive, cheap"
                     .ChartTitle.Text = ""
-
+                    .ChartStyle = 42
                 End If
             End If
 
@@ -72,6 +74,7 @@ For Each objShape In ActiveDocument.InlineShapes
 
                     ' .ChartTitle.Text = "Expensive, cheap per period in %"
                     .ChartTitle.Text = ""
+                    .ChartStyle = 42
                 End If
             End If
 
