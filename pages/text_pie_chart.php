@@ -35,8 +35,6 @@
 
   $section->addTextBreak();
 
-  $title = $section->addTitle('Expensive, cheap in %', 3);
-
   // Pie chart
   $c3 = array('Expensive kW', 'Cheap kW');
   $s3 = array($expensive, $cheap);

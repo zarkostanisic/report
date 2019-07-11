@@ -19,11 +19,12 @@ For Each objShape In ActiveDocument.InlineShapes
             If .HasTitle = True Then
                 If .ChartTitle.Text = "#last-month-pie" Then
 
+                    .ChartTitle.Text = "Expensive, cheap in %"
+                    .ChartStyle = 7
+                    .ApplyLayout (2)
+
                     .SeriesCollection(1).DataLabels.NumberFormat = decimalPercentFormat
                     .Legend.Position = xlLegendPositionBottom
-                    ' .ChartTitle.Text = "Expensive, cheap in %"
-                    .ChartTitle.Text = ""
-                    .ChartStyle = 42
 
                 End If
             End If
@@ -36,9 +37,8 @@ For Each objShape In ActiveDocument.InlineShapes
                     .Legend.Position = xlLegendPositionBottom
 
                     .ChartType = xlColumnClustered
-                    ' .ChartTitle.Text = "Expensive, cheap per period in kW"
-                    .ChartTitle.Text = ""
-                    .ChartStyle = 42
+                    .ChartTitle.Text = "Expensive, cheap per period in kW"
+                    .ChartStyle = 7
 
                     With .ChartGroups(1)
                         ' .GapWidth = 150
@@ -52,16 +52,17 @@ For Each objShape In ActiveDocument.InlineShapes
                         End With
                     Next
 
+                    .ApplyLayout (3)
+
                 End If
             End If
 
             ' Last year bar
             If .HasTitle = True Then
                 If .ChartTitle.Text = "#last-year-bar" Then
-
-                    ' .ChartTitle.Text = "Expensive, cheap"
-                    .ChartTitle.Text = ""
-                    .ChartStyle = 42
+                    .ChartTitle.Text = "Expensive, cheap"
+                    .ChartStyle = 7
+                    .ApplyLayout (3)
                 End If
             End If
 
@@ -69,12 +70,12 @@ For Each objShape In ActiveDocument.InlineShapes
             If .HasTitle = True Then
                 If .ChartTitle.Text = "#last-year-pie-3d" Then
 
+                    .ChartTitle.Text = "Expensive, cheap per period in %"
+                    .ChartStyle = 7
+                    .ApplyLayout (2)
+
                     .SeriesCollection(1).DataLabels.NumberFormat = decimalPercentFormat
                     .Legend.Position = xlLegendPositionBottom
-
-                    ' .ChartTitle.Text = "Expensive, cheap per period in %"
-                    .ChartTitle.Text = ""
-                    .ChartStyle = 42
                 End If
             End If
 

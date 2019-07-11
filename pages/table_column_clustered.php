@@ -86,7 +86,6 @@
   // title
 
   $title = $section->addTitle('Charts', 2);
-  $title = $section->addTitle('Expensive, cheap per period in kW', 3);
 
   // Column clustered chart
 
