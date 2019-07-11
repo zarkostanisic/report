@@ -1,0 +1,28 @@
+Sub chartsTcom()
+'
+' chartsTcom Macro
+'
+'
+Dim objShape As InlineShape
+
+' Number formats
+decimalPercentFormat = "0.00%"
+kwFormat = "0 kW"
+
+
+For Each objShape In ActiveDocument.InlineShapes
+    With objShape.Chart
+        If .ChartType = xlColumnClustered Then
+            .ChartStyle = 3
+            .ApplyLayout (3)
+            .ApplyDataLabels xlDataLabelsShowValue
+            .Legend.Position = xlLegendPositionBottom
+            .Axes(xlCategory).MajorGridlines.Border.Color = RGB(128, 128, 128)
+            .ChartArea.Border.Color = RGB(128, 128, 128)
+            .ChartArea.Font.Color = RGB(128, 128, 128)
+            .PlotArea.Border.Color = RGB(128, 128, 128)
+        End If
+
+    End With
+Next
+End Sub

@@ -38,7 +38,19 @@
   // Pie and column charts - Page 6
   require_once('./pages/pie_column_charts.php');
 
-  // Save
-  require_once('./save.php');
+  $fileName = 'report-' . $customer_id;
+
+  $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
+  $objWriter->save('./reports/' . $fileName . '.docx');
+
+  echo "<hr>";
+  echo "Report generated";
+  echo "<hr>";
+
+  // Test
+  $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'HTML');
+  $objWriter->save('./reports/' . $fileName . '.html');
+
+  require_once('./reports/' . $fileName . '.html');
 
  ?>
