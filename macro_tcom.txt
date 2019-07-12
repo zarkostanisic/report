@@ -14,6 +14,7 @@ For Each objShape In ActiveDocument.InlineShapes
     With objShape.Chart
         HasLegend = .HasLegend
 
+        ' 3D pie
         If .ChartType = xl3DPie Then
             Title = .ChartTitle.Text
             .ChartStyle = 3
@@ -21,24 +22,28 @@ For Each objShape In ActiveDocument.InlineShapes
 
             .ApplyLayout (3)
 
+            ' Title
             .HasTitle = True
             .ChartTitle.Text = Title
 
+            ' Legend
             .Legend.Position = xlLegendPositionBottom
             .Legend.Left = 0
             .Legend.Width = 200
         End If
 
-
+        ' Column and column clustered
         If .ChartType = xlColumnClustered Then
-
+            ' Column clustered
             .ChartStyle = 11
+            ' Column
             If .SeriesCollection.Count = 1 Then
                 .ChartStyle = 3
             End If
 
             .ApplyLayout (3)
 
+            ' Horizontal(Category) Axis Major Gridlines
             With .Axes(xlCategory)
                 .HasMajorGridlines = True
                 .MajorGridlines.Border.Color = RGB(128, 128, 128)
