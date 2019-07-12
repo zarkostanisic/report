@@ -12,23 +12,64 @@ kwFormat = "0 kW"
 
 For Each objShape In ActiveDocument.InlineShapes
     With objShape.Chart
-        If .ChartType = xlColumnClustered Then
+        HasLegend = .HasLegend
+
+        If .ChartType = xl3DPie Then
+            Title = .ChartTitle.Text
             .ChartStyle = 3
+            .ChartColor = 21
 
             .ApplyLayout (3)
-            .ApplyDataLabels xlDataLabelsShowValue
-            .Legend.Position = xlLegendPositionBottom
-            .PlotArea.Border.Color = RGB(128, 128, 128)
 
-            With .ChartArea
-                .Font.Color = RGB(128, 128, 128)
-                .Border.Color = RGB(128, 128, 128)
-            End With
+            .HasTitle = True
+            .ChartTitle.Text = Title
+
+            .Legend.Position = xlLegendPositionBottom
+            .Legend.Left = 0
+            .Legend.Width = 200
+        End If
+
+
+        If .ChartType = xlColumnClustered Then
+
+            .ChartStyle = 11
+            If .SeriesCollection.Count = 1 Then
+                .ChartStyle = 3
+            End If
+
+            .ApplyLayout (3)
 
             With .Axes(xlCategory)
                 .HasMajorGridlines = True
                 .MajorGridlines.Border.Color = RGB(128, 128, 128)
             End With
+
+            .PlotArea.Border.Color = RGB(128, 128, 128)
+
+        End If
+
+        ' Data label show value
+        .ApplyDataLabels xlDataLabelsShowValue
+
+        ' Set font and border color
+        With .ChartArea
+            .Font.Color = RGB(128, 128, 128)
+            .Border.Color = RGB(128, 128, 128)
+        End With
+
+        ' Title
+        If .HasTitle = True Then
+            .ChartTitle.Font.Size = 10
+
+            ' Hide title
+            If .ChartTitle.Text = "#no-title" Then
+                .ChartTitle.Text = " "
+            End If
+        End If
+
+        ' Hide legend
+        If HasLegend = False Then
+            .HasLegend = False
         End If
 
     End With
