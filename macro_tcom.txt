@@ -30,6 +30,8 @@ For Each objShape In ActiveDocument.InlineShapes
             .Legend.Position = xlLegendPositionBottom
             .Legend.Left = 0
             .Legend.Width = 200
+
+            .ChartArea.Format.ThreeD.RotationY = 30
         End If
 
         ' Column and column clustered

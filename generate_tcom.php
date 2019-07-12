@@ -262,7 +262,7 @@
 
   // Chart 4
   $styleChart4 = array(
-    'width' => Converter::inchToEmu(3),
+    'width' => Converter::inchToEmu(2.8),
     'height' => Converter::inchToEmu(2.5),
     '3d' => true,
     'title' => 'Pregled ocitanih brojila',
