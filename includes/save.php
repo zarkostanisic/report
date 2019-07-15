@@ -1,5 +1,4 @@
 <?php
-  $fileName = 'report-' . $customer_id;
 
   $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
   $objWriter->save('./reports/' . $fileName . '.docx');

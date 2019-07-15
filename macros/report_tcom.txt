@@ -1,0 +1,115 @@
+
+
+Sub chartsTcom()
+'
+' chartsTcom Macro
+'
+'
+Dim objShape As InlineShape
+Dim objTable As Table
+
+' Number formats
+decimalPercentFormat = "0.00%"
+kwFormat = "0 kW"
+
+For Each objShape In ActiveDocument.InlineShapes
+    With objShape.Chart
+        ' Default values from before .ApplyLayout
+        HasLegend = .HasLegend
+        ShowCategoryName = .SeriesCollection(1).DataLabels.ShowCategoryName
+        ShowValue = .SeriesCollection(1).DataLabels.ShowValue
+        ShowPercentage = .SeriesCollection(1).DataLabels.ShowPercentage
+        ChartType = .ChartType
+
+        ' Without and with title. When is without title set title as blank space
+        If .HasTitle Then
+            Title = .ChartTitle.Text
+        Else
+            Title = " "
+            .HasTitle = True
+            .ChartTitle.Text = Title
+        End If
+
+
+        ' 3D pie chart
+        If .ChartType = xl3DPie Then
+            .ChartStyle = 3
+            .ChartColor = 21
+
+            .ApplyLayout (3)
+
+            ' Title
+            .HasTitle = True
+            .ChartTitle.Text = Title
+
+            ' Legend
+            With .Legend
+                .Position = xlLegendPositionBottom
+                .Left = 0
+                .Width = 200
+            End With
+
+            ' Y rotate
+            .ChartArea.Format.ThreeD.RotationY = 30
+        End If
+        ' End 3D pie
+
+        ' Column and column clustered charts
+        If .ChartType = xlColumnClustered Then
+            ' Column clustered
+            .ChartStyle = 11
+            ' Column
+            If .SeriesCollection.Count = 1 Then .ChartStyle = 3
+
+            .ApplyLayout (3)
+
+            ' Horizontal(Category) Axis Major Gridlines
+            With .Axes(xlCategory)
+                .HasMajorGridlines = True
+                .MajorGridlines.Border.Color = RGB(128, 128, 128)
+            End With
+
+            .PlotArea.Border.Color = RGB(128, 128, 128)
+        End If
+        ' End column
+
+        ' Set font and border color
+        With .ChartArea
+            .Font.Color = RGB(128, 128, 128)
+            .Border.Color = RGB(128, 128, 128)
+        End With
+
+        ' Title
+        If .HasTitle = True Then .ChartTitle.Font.Size = 10
+
+        '
+        ' Show elements because apply .ApplyLayout hides it
+        '
+
+        ' Data label show value
+        .ApplyDataLabels xlDataLabelsShowValue
+
+
+        ' show(legend)
+        If HasLegend = False Then .HasLegend = False Else .HasLegend = True
+
+        ' Custom data label format, show(CategoryName|Value|Percentage)
+        For Each chartSerie In .SeriesCollection
+            With chartSerie.DataLabels
+                ' .NumberFormat = kwFormat
+                ' .Orientation = xlDownward
+                If ShowCategoryName = False Then .ShowCategoryName = False Else .ShowCategoryName = True
+
+                If ShowValue = False Then .ShowValue = False Else .ShowValue = True
+
+                ' 3D pie percenage
+                If ChartType = xl3DPie Then
+                    If ShowPercentage = False Then .ShowPercentage = False Else .ShowPercentage = True
+                End If
+            End With
+        Next
+        ' End Show elements
+
+    End With
+Next
+End Sub
