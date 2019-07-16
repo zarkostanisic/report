@@ -10,17 +10,20 @@
   );
   $s6 = array(24397, 21080, 18239, 12789, 7898, 2701, 30);
 
-  $styleChart6 = array(
-    'width' => Converter::inchToEmu(6.5),
-    'height' => Converter::inchToEmu(4),
-    'showAxisLabels' => true,
-    'showLegend' => false,
-    'dataLabelOptions' => array(
-      'showCatName' => false
-    )
-  );
+  // $styleChart6 = array(
+  //   'width' => Converter::inchToEmu(6.5),
+  //   'height' => Converter::inchToEmu(4),
+  //   'showAxisLabels' => true,
+  //   'showLegend' => false,
+  //   'dataLabelOptions' => array(
+  //     'showCatName' => false
+  //   )
+  // );
+  //
+  // $section->addChart('column', $c6, $s6, $styleChart6);
 
-  $section->addChart('column', $c6, $s6, $styleChart6);
+  $chart = new Chart('', Converter::inchToEmu(6.5), Converter::inchToEmu(4), false, false, true);
+  $chart->column($c6, $s6);
 
   $section->addTextBreak();
 
@@ -48,19 +51,22 @@
      $s7[2][] = $v[3];
   }
 
-  $styleChart7 = array(
-    'width' => Converter::inchToEmu(6.5),
-    'height' => Converter::inchToEmu(4),
-    'title' => 'Broj citanja po ispostavi po danima',
-    'showAxisLabels' => true,
-    'showLegend' => true,
-    'dataLabelOptions' => array(
-      'showCatName' => false,
-      'showVal' => false,
-    )
-  );
+  // $styleChart7 = array(
+  //   'width' => Converter::inchToEmu(6.5),
+  //   'height' => Converter::inchToEmu(4),
+  //   'title' => 'Broj citanja po ispostavi po danima',
+  //   'showAxisLabels' => true,
+  //   'showLegend' => true,
+  //   'dataLabelOptions' => array(
+  //     'showCatName' => false,
+  //     'showVal' => false,
+  //   )
+  // );
+  //
+  // $chart7 = $section->addChart('column', $c7, $s7[0], $styleChart7, $cities[0]);
+  // $chart7->addSeries($c7, $s7[1], $cities[1]);
+  // $chart7->addSeries($c7, $s7[2], $cities[2]);
 
-  $chart7 = $section->addChart('column', $c7, $s7[0], $styleChart7, $cities[0]);
-  $chart7->addSeries($c7, $s7[1], $cities[1]);
-  $chart7->addSeries($c7, $s7[2], $cities[2]);
+  $chart7 = new Chart('Broj citanja po ispostavi po danima', Converter::inchToEmu(6.5), Converter::inchToEmu(4), false, true, true, false);
+  $chart7->columnClustered($c7, $s7, $cities);
  ?>
