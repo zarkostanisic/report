@@ -19,6 +19,7 @@ For Each objShape In ActiveDocument.InlineShapes
         ShowCategoryName = .SeriesCollection(1).DataLabels.ShowCategoryName
         ShowValue = .SeriesCollection(1).DataLabels.ShowValue
         ShowPercentage = .SeriesCollection(1).DataLabels.ShowPercentage
+        SeriesCollectionCount = .SeriesCollection.Count
         ChartType = .ChartType
 
         ' Without and with title. When is without title set title as blank space
@@ -57,9 +58,10 @@ For Each objShape In ActiveDocument.InlineShapes
         ' Column and column clustered charts
         If .ChartType = xlColumnClustered Then
             ' Column clustered
-            .ChartStyle = 11
+            .ChartStyle = 33
+            .ChartColor = 2
             ' Column
-            If .SeriesCollection.Count = 1 Then .ChartStyle = 3
+            ' If SeriesCollectionCount = 1 Then .ChartColor = 2
 
             .ApplyLayout (3)
 
@@ -70,6 +72,8 @@ For Each objShape In ActiveDocument.InlineShapes
             End With
 
             .PlotArea.Border.Color = RGB(128, 128, 128)
+            .PlotArea.Interior.Color = RGB(255, 255, 255)
+
         End If
         ' End column
 
@@ -96,8 +100,6 @@ For Each objShape In ActiveDocument.InlineShapes
         ' Custom data label format, show(CategoryName|Value|Percentage)
         For Each chartSerie In .SeriesCollection
             With chartSerie.DataLabels
-                ' .NumberFormat = kwFormat
-                ' .Orientation = xlDownward
                 If ShowCategoryName = False Then .ShowCategoryName = False Else .ShowCategoryName = True
 
                 If ShowValue = False Then .ShowValue = False Else .ShowValue = True
@@ -105,6 +107,11 @@ For Each objShape In ActiveDocument.InlineShapes
                 ' 3D pie percenage
                 If ChartType = xl3DPie Then
                     If ShowPercentage = False Then .ShowPercentage = False Else .ShowPercentage = True
+                End If
+
+                ' Column and column clustered label orientation
+                If ChartType = xlColumnClustered Then
+                     If SeriesCollectionCount > 1 Then .Orientation = xlDownward
                 End If
             End With
         Next
