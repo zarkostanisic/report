@@ -1,5 +1,7 @@
 <?php
   use PhpOffice\PhpWord\Shared\Converter;
+  use App\Table;
+  use App\Chart;
 
   $section = $phpWord->addSection(array('breakType' => 'continuous'));
 
